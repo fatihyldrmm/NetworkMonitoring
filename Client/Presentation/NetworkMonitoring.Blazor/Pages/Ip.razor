@@ -1,9 +1,6 @@
-﻿@page "/Dashboard"
+﻿@page "/Ip"
 @layout MainLayout
-<PageTitle>Home</PageTitle>
-@code {
-    
-}
+
 @code {
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
@@ -15,11 +12,7 @@
 }
 
 <div class="p-5 mt-10">
-    <div class="">
-        <div class="p-5 w-full">
-            <TooltipChart></TooltipChart>
-        </div>
-        <div class="grid grid-cols-4 gap-4">
-        </div>
+    <div>
+        <IpColumnChart></IpColumnChart>
     </div>
 </div>

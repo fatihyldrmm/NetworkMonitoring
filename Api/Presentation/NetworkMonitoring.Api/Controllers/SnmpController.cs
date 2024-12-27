@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using NetworkMonitoring.Api.Application.OidLists;
 using NetworkMonitoring.Api.Persistence.Fetcher;
+using NetworkMonitoring.Api.Persistence.MongoDB;
 using NetworkMonitoring.Domain.Models;
 using SnmpProje.Services.Interfaces;
 
@@ -12,10 +13,11 @@ namespace NetworkMonitoring.Api.Controllers
     public class SnmpController : ControllerBase
     {
         private readonly ISnmpService _snmpService;
-
-        public SnmpController(ISnmpService snmpService)
+        private readonly SnmpRepository _repository;
+        public SnmpController(ISnmpService snmpService, SnmpRepository repository)
         {
             _snmpService = snmpService;
+            _repository = repository;
         }
 
         [HttpGet("device/{ipAddress}")]
@@ -67,7 +69,7 @@ namespace NetworkMonitoring.Api.Controllers
         [HttpGet("get-tcp-oid/{ipAddress}")]
         public async Task<IActionResult> GetTcpOids(string ipAddress)
         {
-            var list = SnmpDataFetcher.FetchSnmpData(OidRepository.GetTcpOids(), OidRepository.GetTcpOidNames(), ipAddress);
+            var list = SnmpDataFetcher.FetchSnmpData("Tcp", OidRepository.GetTcpOids(), OidRepository.GetTcpOidNames(), ipAddress);
             //var community = "public";
             //var list = await _snmpService.GetTcpOidData(ipAddress, community);
             return Ok(list);
@@ -75,7 +77,7 @@ namespace NetworkMonitoring.Api.Controllers
         [HttpGet("get-udp-oid/{ipAddress}")]
         public async Task<IActionResult> GetUdpOids(string ipAddress)
         {
-            var list = SnmpDataFetcher.FetchSnmpData(OidRepository.GetUdpOids(), OidRepository.GetUdpOidNames(), ipAddress);
+            var list = SnmpDataFetcher.FetchSnmpData("Upd", OidRepository.GetUdpOids(), OidRepository.GetUdpOidNames(), ipAddress);
             //var community = "public";
             //var list = await _snmpService.GetTcpOidData(ipAddress, community);
             return Ok(list);
@@ -83,7 +85,7 @@ namespace NetworkMonitoring.Api.Controllers
         [HttpGet("get-system-oid/{ipAddress}")]
         public async Task<IActionResult> GetSystemOids(string ipAddress)
         {
-            var list = SnmpDataFetcher.FetchSnmpData(OidRepository.GetSystemOids(), OidRepository.GetSystemOidNames(), ipAddress);
+            var list = SnmpDataFetcher.FetchSnmpData("System", OidRepository.GetSystemOids(), OidRepository.GetSystemOidNames(), ipAddress);
             //var community = "public";
             //var list = await _snmpService.GetTcpOidData(ipAddress, community);
             return Ok(list);
@@ -91,7 +93,7 @@ namespace NetworkMonitoring.Api.Controllers
         [HttpGet("get-snmp-stats-oid/{ipAddress}")]
         public async Task<IActionResult> GetSnmpStatsOids(string ipAddress)
         {
-            var list = SnmpDataFetcher.FetchSnmpData(OidRepository.GetSnmpStatsOids(), OidRepository.GetSnmpStatsOidNames(), ipAddress);
+            var list = SnmpDataFetcher.FetchSnmpData("SnmpStats", OidRepository.GetSnmpStatsOids(), OidRepository.GetSnmpStatsOidNames(), ipAddress);
             //var community = "public";
             //var list = await _snmpService.GetTcpOidData(ipAddress, community);
             return Ok(list);
@@ -99,7 +101,7 @@ namespace NetworkMonitoring.Api.Controllers
         [HttpGet("get-ip-oid/{ipAddress}")]
         public async Task<IActionResult> GetIpOids(string ipAddress)
         {
-            var list = SnmpDataFetcher.FetchSnmpData(OidRepository.GetIpOids(), OidRepository.GetIpOidNmes(), ipAddress);
+            var list = SnmpDataFetcher.FetchSnmpData("Ip", OidRepository.GetIpOids(), OidRepository.GetIpOidNmes(), ipAddress);
             //var community = "public";
             //var list = await _snmpService.GetTcpOidData(ipAddress, community);
             return Ok(list);
@@ -107,7 +109,7 @@ namespace NetworkMonitoring.Api.Controllers
         [HttpGet("get-interface-oid/{ipAddress}")]
         public async Task<IActionResult> GetInterfaceOids(string ipAddress)
         {
-            var list = SnmpDataFetcher.FetchSnmpData(OidRepository.GetInterfaceOids(), OidRepository.GetInterfaceOidNames(), ipAddress);
+            var list = SnmpDataFetcher.FetchSnmpData("Interface", OidRepository.GetInterfaceOids(), OidRepository.GetInterfaceOidNames(), ipAddress);
             //var community = "public";
             //var list = await _snmpService.GetTcpOidData(ipAddress, community);
             return Ok(list);
@@ -115,7 +117,7 @@ namespace NetworkMonitoring.Api.Controllers
         [HttpGet("get-icmp-oid/{ipAddress}")]
         public async Task<IActionResult> GetIcmpOids(string ipAddress)
         {
-            var list = SnmpDataFetcher.FetchSnmpData(OidRepository.GetIcmpOids(), OidRepository.GetIcmpOidNames(), ipAddress);
+            var list = SnmpDataFetcher.FetchSnmpData("Icmp", OidRepository.GetIcmpOids(), OidRepository.GetIcmpOidNames(), ipAddress);
             //var community = "public";
             //var list = await _snmpService.GetTcpOidData(ipAddress, community);
             return Ok(list);
@@ -123,7 +125,7 @@ namespace NetworkMonitoring.Api.Controllers
         [HttpGet("get-egp-oid/{ipAddress}")]
         public async Task<IActionResult> GetEgpOids(string ipAddress)
         {
-            var list = SnmpDataFetcher.FetchSnmpData(OidRepository.GetEgpOids(), OidRepository.GetEgpOidNames(), ipAddress);
+            var list = SnmpDataFetcher.FetchSnmpData("Egp", OidRepository.GetEgpOids(), OidRepository.GetEgpOidNames(), ipAddress);
             //var community = "public";
             //var list = await _snmpService.GetTcpOidData(ipAddress, community);
             return Ok(list);
@@ -131,7 +133,7 @@ namespace NetworkMonitoring.Api.Controllers
         [HttpGet("get-egpcomm-oid/{ipAddress}")]
         public async Task<IActionResult> GetEgpCommunicationOids(string ipAddress)
         {
-            var list = SnmpDataFetcher.FetchSnmpData(OidRepository.GetEgpCommunicationOids(), OidRepository.GetEgpCommunicationOidNames(), ipAddress);
+            var list = SnmpDataFetcher.FetchSnmpData("EgpComm", OidRepository.GetEgpCommunicationOids(), OidRepository.GetEgpCommunicationOidNames(), ipAddress);
             //var community = "public";
             //var list = await _snmpService.GetTcpOidData(ipAddress, community);
             return Ok(list);
@@ -139,7 +141,7 @@ namespace NetworkMonitoring.Api.Controllers
         [HttpGet("get-egp-at-oid/{ipAddress}")]
         public async Task<IActionResult> GetEgpAtOids(string ipAddress)
         {
-            var list = SnmpDataFetcher.FetchSnmpData(OidRepository.GetEgpAtOids(), OidRepository.GetEgpAtOidNames(), ipAddress);
+            var list = SnmpDataFetcher.FetchSnmpData("EgpAt", OidRepository.GetEgpAtOids(), OidRepository.GetEgpAtOidNames(), ipAddress);
             //var community = "public";
             //var list = await _snmpService.GetTcpOidData(ipAddress, community);
             return Ok(list);
@@ -150,6 +152,12 @@ namespace NetworkMonitoring.Api.Controllers
         {
             var list = OidRepository.GetOidTypes();
             return Ok(list);
+        }
+        [HttpGet("get-tcp-datas")]
+        public async Task<IActionResult> GetTcpDatas()
+        {
+            var data = await _repository.GetAllDataAsync();
+            return Ok(data);
         }
     }
 }

@@ -8,7 +8,7 @@ namespace NetworkMonitoring.Api.Persistence.Fetcher
 
     public static class SnmpDataFetcher
     {
-        public static SnmpOidChartViewModel FetchSnmpData(List<string> oids, List<string> oidNames, string host, string community = "public", int port = 161)
+        public static SnmpOidChartViewModel FetchSnmpData(string oidType,List<string> oids, List<string> oidNames, string host, string community = "public", int port = 161)
         {
             SnmpOidChartViewModel chartData = new SnmpOidChartViewModel();
             try
@@ -19,7 +19,7 @@ namespace NetworkMonitoring.Api.Persistence.Fetcher
                 byte[] byteArray = IPAddress.Parse(host).GetAddressBytes();
                 IPAddress agent = new IPAddress(byteArray);
                 UdpTarget target = new UdpTarget(agent, port, 2000, 1);
-                chartData.OidType = "TCPOids";
+                chartData.OidType = oidType;
                 // Fetch SNMP Data
                 for (int i = 0; i < oids.Count; i++)
                 {

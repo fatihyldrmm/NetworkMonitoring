@@ -1,4 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using NetworkMonitoring.Api.Persistence.BackgroundServices;
+using NetworkMonitoring.Api.Persistence.Context;
+using NetworkMonitoring.Api.Persistence.MongoDB;
 using NetworkMonitoring.Application.Repositories;
 using NetworkMonitoring.Persistence.Repositories;
 using NetworkMonitoring.Persistence.Services;
@@ -17,6 +20,9 @@ namespace NetworkMonitoring.Persistence.Extensions
             services.AddScoped<IDeviceService, DeviceService>();
             services.AddScoped<ISnmpService, SnmpService>();
             services.AddScoped<ISyslogService, SyslogService>();
+            services.AddSingleton<MongoDBContext>();
+            //services.AddHostedService<SnmpDataCollectorService>();
+            services.AddSingleton<SnmpRepository>();
             return services;
         }
     }
