@@ -132,5 +132,13 @@ namespace NetworkMonitoring.Client.Persistence.Services
             return data;
         }
 
+        public async Task<List<TcpDatasViewModel>> GetTcpDatas()
+        {
+            HttpResponseMessage response = await httpClient.GetAsync($"api/Snmp/get-tcp-datas");
+            response.EnsureSuccessStatusCode();
+            string json = await response.Content.ReadAsStringAsync();
+            var data = JsonConvert.DeserializeObject<List<TcpDatasViewModel>>(json);
+            return data;
+        }
     }
 }

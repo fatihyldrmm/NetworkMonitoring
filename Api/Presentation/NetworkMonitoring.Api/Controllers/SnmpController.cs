@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using NetworkMonitoring.Api.Application.Features.Query.Oid.Chart;
 using NetworkMonitoring.Api.Application.OidLists;
 using NetworkMonitoring.Api.Persistence.Fetcher;
 using NetworkMonitoring.Api.Persistence.MongoDB;

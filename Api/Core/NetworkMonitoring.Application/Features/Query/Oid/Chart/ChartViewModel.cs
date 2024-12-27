@@ -1,11 +1,11 @@
-﻿namespace NetworkMonitoring.Client.Domain.Models.Response
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace NetworkMonitoring.Api.Application.Features.Query.Oid.Chart
 {
-    public class SnmpDataPoint
-    {
-        public string OidName { get; set; }
-        public string OidValue { get; set; }
-        public DateTime TimeStamp { get; set; }
-    }
     public class ChartViewModel
     {
         public List<ChartSeries> Series { get; set; }
@@ -18,4 +18,5 @@
         public List<int> Data { get; set; }
         public string Color { get; set; }
     }
+
 }

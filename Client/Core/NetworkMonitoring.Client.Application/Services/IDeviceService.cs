@@ -16,5 +16,6 @@ namespace NetworkMonitoring.Client.Application.Services
         public Task<ColumnChartData> GetEgpCommunicationOids(string ipAdress);
         public Task<ColumnChartData> GetEgpAtOids(string ipAdress);
         public Task<List<string>> GetOidTypes();
+        public Task<List<TcpDatasViewModel>> GetTcpDatas();
     }
 }
