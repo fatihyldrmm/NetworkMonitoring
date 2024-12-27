@@ -1,0 +1,44 @@
+﻿@page "/"
+@layout MainLayout
+<PageTitle>Home</PageTitle>
+@code {
+    
+}
+@code {
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await JSRuntime.InvokeVoidAsync("initializeFlowbite");
+        }
+    }
+}
+
+<div class="p-5 mt-10">
+    <div class="">
+        <div class="p-5">
+            <TooltipChart></TooltipChart>
+        </div>
+        <div class="p-5">
+            <ColumnChart></ColumnChart>
+        </div>
+        <div class="p-5">
+            <ColumnChart></ColumnChart>
+        </div>
+        <div class="p-5">
+            <ColumnChart></ColumnChart>
+        </div>
+        <div class="p-5">
+            <ColumnChart></ColumnChart>
+        </div>
+        <div class="p-5">
+            <ColumnChart></ColumnChart>
+        </div>
+        <div class="p-5">
+            <ColumnChart></ColumnChart>
+        </div>
+        <div class="p-5">
+            <ColumnChart></ColumnChart>
+        </div>
+    </div>
+</div>

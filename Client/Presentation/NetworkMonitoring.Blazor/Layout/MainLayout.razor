@@ -1,0 +1,17 @@
+﻿@inherits LayoutComponentBase
+
+<NavbarMenu OnToggle="HandleToggle" IsOpen="@isSidebarOpen" />
+<SidebarMenu IsOpen="@isSidebarOpen" />
+
+<main class="bg-gray-50 h-screen" style="margin-left: @(isSidebarOpen ? "16rem" : "0")">
+    @Body
+</main>
+
+@code {
+    private bool isSidebarOpen = true;
+
+    private void HandleToggle(bool isOpen)
+    {
+        isSidebarOpen = isOpen;
+    }
+}
